@@ -20,7 +20,7 @@ do
 
 		echo "ContainerID: $container_id  Name: $name  NetI/O: $net"
 
-		if [[ "${net_unit}" == "MB" && $(echo "$net_val 20" | awk '{print ($1> $2)}') -eq "1" ]]
+		if [[ "${net_unit}" == "GB" && $(echo "$net_val 2" | awk '{print ($1> $2)}') -eq "1" ]]
 		then
 			echo "超过流量了"
 		fi
