@@ -16,7 +16,7 @@ do
 		name=$(echo $line | cut -d " " -f 2)
 		net=$(echo $line | cut -d " " -f 8)
 		net_unit=${net:0-2}
-		net_val=${net:0:${#str}-2}
+		net_val=${net:0:${#net}-2}
 
 		echo "ContainerID: $container_id  Name: $name  NetI/O: $net"
 
