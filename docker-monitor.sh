@@ -6,8 +6,10 @@ wechatSend(){
 	key="11994-857861cc71acc6bb6efeb3befd3b71db"
 	title="$1"
 	content="$2"
+	url = "https://pushbear.ftqq.com/sub?sendkey=${key}&text=${title}&desp=${content}"
+	echo "$url"
 	# curl "https://pushbear.ftqq.com/sub?sendkey=${key}&text=${title}&desp=${content}" >/dev/null 2>&1
-	curl "https://pushbear.ftqq.com/sub?sendkey=${key}&text=${title}&desp=${content}"
+	curl "$url"
 }
 
 docker stats --no-stream | while read -r line
