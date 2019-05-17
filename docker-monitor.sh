@@ -8,6 +8,7 @@ cpu_limit=10
 wechatSend(){
 	key="SCU50529T56c1fc580948bf3a0aeed1abfabb93b55ccc07bc5c204"
 	url="https://sc.ftqq.com/${key}.send"
+	echo "${2}"
 	curl -G --data-urlencode "text=${1}" --data-urlencode "desp=${2}" "${url}" >/dev/null 2>&1
 }
 
@@ -28,7 +29,8 @@ do
 		then
 			echo "流量超出通知"
 			title="流量超出通知_${ip_addr}"
-			content="VPS IP: ${ip_addr}，Docker Name: ${name}，NetIO: ${net}，已將該服務暫停"
+			content="VPS IP: ${ip_addr}，ContainerID: ${container_id}，Docker Name: ${name}，NetIO: ${net}，已將該服務暫停"
+			echo content
 			wechatSend ${title} ${content}
 		fi
 	fi
