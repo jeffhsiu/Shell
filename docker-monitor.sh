@@ -1,12 +1,13 @@
 #!/bin/bash
 
-ip_addr=ip a | grep eth0 | grep inet | grep -v inet6 | sed 's/^[ \t]*//g' | cut -d ' ' -f 2 | cut -d '/' -f 1
+ip_addr=`ip a | grep eth0 | grep inet | grep -v inet6 | sed 's/^[ \t]*//g' | cut -d ' ' -f 2 | cut -d '/' -f 1`
 
 wechatSend(){
 	key="11994-869a36ce1e0cf7724d2e3f7dd01b6e24"
 	title="$1"
 	content="$2"
-	curl "https://pushbear.ftqq.com/sub?sendkey=${key}&text=${title}&desp=${content}" >/dev/null 2>&1
+	# curl "https://pushbear.ftqq.com/sub?sendkey=${key}&text=${title}&desp=${content}" >/dev/null 2>&1
+	curl "https://pushbear.ftqq.com/sub?sendkey=${key}&text=${title}&desp=${content}"
 }
 
 docker stats --no-stream | while read -r line
@@ -24,6 +25,7 @@ do
 
 		if [[ "${net_unit}" == "GB" && $(echo "$net_val 20" | awk '{print ($1> $2)}') -eq "1" ]]
 		then
+			echo "流量超出通知"
 			wechatSend "流量超出通知 ${net}" "VPS IP: ${ip_addr}, Docker Name: ${name}, NetIO: ${net}"
 		fi
 	fi
