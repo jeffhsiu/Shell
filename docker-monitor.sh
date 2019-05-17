@@ -3,7 +3,7 @@
 ip_addr=`ip a | grep eth0 | grep inet | grep -v inet6 | sed 's/^[ \t]*//g' | cut -d ' ' -f 2 | cut -d '/' -f 1`
 
 wechatSend(){
-	key="11994-869a36ce1e0cf7724d2e3f7dd01b6e24"
+	key="11994-857861cc71acc6bb6efeb3befd3b71db"
 	title="$1"
 	content="$2"
 	# curl "https://pushbear.ftqq.com/sub?sendkey=${key}&text=${title}&desp=${content}" >/dev/null 2>&1
