@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ip_addr=`ip a | grep eth0 | grep inet | grep -v inet6 | sed 's/^[ \t]*//g' | cut -d ' ' -f 2 | cut -d '/' -f 1`
-net_limit=20  # 單位是GB
+net_limit=50  # 單位是GB
 mem_limit=50  # 單位是MiB
 cpu_limit=10  # 單位是%
 
@@ -38,7 +38,7 @@ do
 			echo "CPU使用率過高"
 			title="CPU使用率過高_${ip_addr}"
 			content="VPS IP: ${ip_addr}，Docker Name: ${name}，ContainerID: ${container_id}，CPU %: ${cpu}，Mem: ${mem}，NetIO: ${net}"
-			# wechatSend "${title}" "${content}"
+			wechatSend "${title}" "${content}"
 		fi
 
 		# Memory 監控
@@ -47,8 +47,7 @@ do
 			echo "Memory使用量過高"
 			title="Memory使用量過高_${ip_addr}"
 			content="VPS IP: ${ip_addr}，Docker Name: ${name}，ContainerID: ${container_id}，CPU %: ${cpu}，Mem: ${mem}，NetIO: ${net}"
-			docker stop "${name}"
-			# wechatSend "${title}" "${content}"
+			wechatSend "${title}" "${content}"
 		fi
 
 		# 網路流量監控
@@ -56,8 +55,9 @@ do
 		then
 			echo "Net流量超出限制"
 			title="Net流量超出通知_${ip_addr}"
-			content="VPS IP: ${ip_addr}，Docker Name: ${name}，ContainerID: ${container_id}，CPU %: ${cpu}，Mem: ${mem}，NetIO: ${net}，已將該服務暫停"
-			# wechatSend "${title}" "${content}"
+			content="VPS IP: ${ip_addr}，Docker Name: ${name}，ContainerID: ${container_id}，CPU %: ${cpu}，Mem: ${mem}，NetIO: ${net}，已停止該服務"
+			wechatSend "${title}" "${content}"
+			docker stop "${name}"
 		fi
 	fi
 done
