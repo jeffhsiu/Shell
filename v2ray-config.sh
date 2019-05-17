@@ -220,7 +220,7 @@ export_qrcode()
 	fi
 
 	local vmess="vmess://$(cat /usr/local/etc/v2ray/vmess_qr.json | base64 -b 0)"
-	link="http://chart.apis.google.com/chart?cht=qr&chs=360&chl=${vmess}"
+	link="http://api.jeffhsiu.com/qrcode/create?size=460&error=Q&text=${vmess}"
 	wget -O ${path}/qrcode-${index}.png ${link}
 }
 

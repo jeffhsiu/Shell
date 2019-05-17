@@ -50,7 +50,7 @@ do
 			wechatSend "${title}" "${content}"
 		fi
 
-		# 網路流量監控
+		# 網路流量監控，超出限制的話就stop
 		if [[ "${net_unit}" == "GB" && $(echo "${net_val} ${net_limit}" | awk '{print ($1> $2)}') -eq "1" ]]
 		then
 			echo "Net流量超出限制"
