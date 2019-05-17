@@ -30,6 +30,8 @@ do
 		net_unit=${net:0-2}
 		net_val=${net:0:${#net}-2}
 
+		echo "ContainerID: $container_id  Name: $name  CPU%: $cpu  Mem: $mem  NetI/O: $net"
+
 		# CPU 監控
 		if [[ $(echo "${cpu_val} ${cpu_limit}" | awk '{print ($1> $2)}') -eq "1" ]]
 		then
