@@ -3,10 +3,10 @@
 ip_addr=`ip a | grep eth0 | grep inet | grep -v inet6 | sed 's/^[ \t]*//g' | cut -d ' ' -f 2 | cut -d '/' -f 1`
 
 wechatSend(){
-	key="11994-857861cc71acc6bb6efeb3befd3b71db"
+	key="SCU50529T56c1fc580948bf3a0aeed1abfabb93b55ccc07bc5c204"
 	title="$1"
 	content="$2"
-	url="https://pushbear.ftqq.com/sub?sendkey=${key}"
+	url="https://sc.ftqq.com/${key}.send"
 	# curl "https://pushbear.ftqq.com/sub?sendkey=${key}&text=${title}&desp=${content}" >/dev/null 2>&1
 	curl -G --data-urlencode "text=${title}" --data-urlencode "desp=${content}" "${url}"
 }
@@ -27,7 +27,7 @@ do
 		if [[ "${net_unit}" == "GB" && $(echo "$net_val 20" | awk '{print ($1> $2)}') -eq "1" ]]
 		then
 			echo "流量超出通知"
-			wechatSend "流量超出通知 ${net}" "VPS IP: ${ip_addr}, Docker Name: ${name}, NetIO: ${net}"
+			wechatSend "流量超出通知 ${ip_addr}" "VPS IP: ${ip_addr}, Docker Name: ${name}, NetIO: ${net}"
 		fi
 	fi
 done
