@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ip_addr=ip a | grep eth0 | grep inet | grep -v inet6 | sed 's/^[ \t]*//g' | cut -d ' ' -f 2 | cut -d '/' -f 1
+
 wechatSend(){
 	key="11994-869a36ce1e0cf7724d2e3f7dd01b6e24"
 	title="$1"
@@ -20,9 +22,9 @@ do
 
 		echo "ContainerID: $container_id  Name: $name  NetI/O: $net"
 
-		if [[ "${net_unit}" == "GB" && $(echo "$net_val 2" | awk '{print ($1> $2)}') -eq "1" ]]
+		if [[ "${net_unit}" == "GB" && $(echo "$net_val 20" | awk '{print ($1> $2)}') -eq "1" ]]
 		then
-			echo "超过流量了"
+			wechatSend "流量超出通知 ${net}" "VPS IP: ${ip_addr}, Docker Name: ${name}, NetIO: ${net}"
 		fi
 	fi
 done
