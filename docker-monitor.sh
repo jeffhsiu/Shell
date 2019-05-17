@@ -1,9 +1,9 @@
 #!/bin/bash
 
 ip_addr=`ip a | grep eth0 | grep inet | grep -v inet6 | sed 's/^[ \t]*//g' | cut -d ' ' -f 2 | cut -d '/' -f 1`
-net_limit=20
-mem_limit=50
-cpu_limit=10
+net_limit=20  # 單位是GB
+mem_limit=50  # 單位是MiB
+cpu_limit=10  # 單位是%
 
 wechatSend(){
 	key="SCU50529T56c1fc580948bf3a0aeed1abfabb93b55ccc07bc5c204"
@@ -47,6 +47,7 @@ do
 			echo "Memory使用量過高"
 			title="Memory使用量過高_${ip_addr}"
 			content="VPS IP: ${ip_addr}，Docker Name: ${name}，ContainerID: ${container_id}，CPU %: ${cpu}，Mem: ${mem}，NetIO: ${net}"
+			docker stop "${name}"
 			# wechatSend "${title}" "${content}"
 		fi
 
