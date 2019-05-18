@@ -37,7 +37,7 @@ do
 		then
 			echo "CPU使用率過高"
 			title="CPU使用率過高_${ip_addr}"
-			content="VPS IP: ${ip_addr}，Docker Name: ${name}，ContainerID: ${container_id}，CPU %: ${cpu}，Mem: ${mem}，NetIO: ${net}"
+			content="VPS IP_${ip_addr}，Docker Name_${name}，CPU %_${cpu}，Mem_${mem}，NetIO_${net}，ContainerID_${container_id}"
 			wechatSend "${title}" "${content}"
 		fi
 
@@ -46,7 +46,7 @@ do
 		then
 			echo "Memory使用量過高"
 			title="Memory使用量過高_${ip_addr}"
-			content="VPS IP: ${ip_addr}，Docker Name: ${name}，ContainerID: ${container_id}，CPU %: ${cpu}，Mem: ${mem}，NetIO: ${net}"
+			content="VPS IP_${ip_addr}，Docker Name_${name}，CPU %_${cpu}，Mem_${mem}，NetIO_${net}，ContainerID_${container_id}"
 			wechatSend "${title}" "${content}"
 		fi
 
@@ -55,7 +55,7 @@ do
 		then
 			echo "Net流量超出限制"
 			title="Net流量超出通知_${ip_addr}"
-			content="VPS IP: ${ip_addr}，Docker Name: ${name}，ContainerID: ${container_id}，CPU %: ${cpu}，Mem: ${mem}，NetIO: ${net}，已停止該服務"
+			content="VPS IP_${ip_addr}，Docker Name_${name}，CPU %_${cpu}，Mem_${mem}，NetIO_${net}，ContainerID_${container_id}，已停止該服務"
 			wechatSend "${title}" "${content}"
 			docker stop "${name}"
 		fi
