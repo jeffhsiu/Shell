@@ -228,7 +228,7 @@ for i in `seq ${index_start} ${index_end}`
 do
     index=$i
     v2ray_id=$(uuidgen | tr "[:upper:]" "[:lower:]")
-    port=`expr 6980 + ${index}`
+    port=`expr 5550 + ${index}`
     create_v2ray_config
     create_vmess_URL_config
     scp_config
