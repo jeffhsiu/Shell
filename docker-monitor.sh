@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ip_addr=`curl ifconfig.me`
+ip_addr=`curl -s ifconfig.me`
 net_limit=50  # 單位是GB
 mem_limit=50  # 單位是MiB
 cpu_limit=10  # 單位是%
