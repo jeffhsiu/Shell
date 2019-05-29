@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ip_addr=`ip a | grep eth0 | grep inet | grep -v inet6 | sed 's/^[ \t]*//g' | cut -d ' ' -f 2 | cut -d '/' -f 1`
+ip_addr=`curl ifconfig.me`
 net_limit=50  # 單位是GB
 mem_limit=50  # 單位是MiB
 cpu_limit=10  # 單位是%
