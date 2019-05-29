@@ -226,7 +226,7 @@ export_qrcode()
 
 for i in `seq ${index_start} ${index_end}`
 do
-    index=$i
+    index=`echo ${i}|awk '{printf("%02d\n",$0)}'`
     v2ray_id=$(uuidgen | tr "[:upper:]" "[:lower:]")
     port=`expr 5550 + ${index}`
     create_v2ray_config
