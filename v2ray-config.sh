@@ -8,16 +8,8 @@ purple="\033[35m"
 dgreen="\033[36m"
 colorend="\033[0m"
 
-echo "請選擇VPS類型:"
-echo "  ${green}1.${colorend} Bandwagon Host"
-echo "  ${green}2.${colorend} Google Cloud"
-read -p "請輸入選項: " vps
-vps=${vps:-1}
 read -p "請輸入ip: " ip
-if [[ ${vps} == "1" ]]
-then
-    read -p "請輸入ssh port: " ssh_port
-fi
+read -p "請輸入ssh port (預設22): " ssh_port
 read -p "請輸入password: " ssh_pwd
 read -p "請輸入index (R開頭代表循環): " index
 read -p "請輸入alterId (預設100): " alter_id
@@ -34,10 +26,7 @@ else
 fi
 alter_id=${alter_id:-100}
 ssh_port=${ssh_port:-22}
-case ${vps} in
-	1) path="/Users/Jeff.Lin/Documents/V2ray-Account/Bandwagon/${ip}" ;;
-	2) path="/Users/Jeff.Lin/Documents/V2ray-Account/Google/${ip}" ;;
-esac
+path="/Users/Jeff.Lin/Documents/V2ray-Account/${ip}"
 
 scp_config()
 {
@@ -52,6 +41,10 @@ scp_config()
 
 docker_run()
 {
+    echo "移除遠程主機 docker ..."
+    sshpass -p ${ssh_pwd} ssh -p ${ssh_port} root@${ip} \
+        "docker rm -f v2ray-${index:0-1} v2ray-${index}"
+    echo
 	echo "執行遠程主機 docker run..."
 	container_id=`sshpass -p ${ssh_pwd} ssh -p ${ssh_port} root@${ip} \
 		"docker run -d --name=v2ray-${index} -v /etc/v2ray:/etc/v2ray \
