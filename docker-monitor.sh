@@ -11,6 +11,11 @@ wechatSend(){
 	curl -G --data-urlencode "text=$1" --data-urlencode "desp=$2" "${url}" > /dev/null 2>&1
 }
 
+netPush(){
+	url="http://v2ray.jeffhsiu.com/api/push/net"
+	curl -G --data-urlencode "ip=${ip_addr}" --data-urlencode "docker_name=${1}" --data-urlencode "net=${2}" "${url}" > /dev/null 2>&1
+}
+
 docker stats --no-stream | while read -r line
 do
 	((count++))
@@ -54,10 +59,8 @@ do
 		if [[ "${net_unit}" == "GB" && $(echo "${net_val} ${net_limit}" | awk '{print ($1> $2)}') -eq "1" ]]
 		then
 			echo "Net流量超出限制"
-			title="Net流量超出通知_${ip_addr}"
-			content="VPS IP_${ip_addr}，Docker Name_${name}，CPU %_${cpu}，Mem_${mem}，NetIO_${net}，ContainerID_${container_id}，已停止該服務"
-			wechatSend "${title}" "${content}"
 			docker stop "${name}"
+			netPush "${name}" "${net}"
 		fi
 	fi
 done
