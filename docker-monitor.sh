@@ -3,7 +3,7 @@
 ip_addr=`curl -s ifconfig.me`
 net_limit=50  # 單位是GB
 mem_limit=50  # 單位是MiB
-cpu_limit=12  # 單位是%
+cpu_limit=15  # 單位是%
 
 wechatSend(){
 	key="SCU50529T56c1fc580948bf3a0aeed1abfabb93b55ccc07bc5c204"
